@@ -1,5 +1,3 @@
-#!/usr/bin/bash
-
 #!/bin/bash
 
 previous_step=$(cat ./previous_step.log)
