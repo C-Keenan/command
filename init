@@ -8,16 +8,20 @@ s=$previous_step
 if [ $s -eq 0 ]
 then
     echo "Checking if files exist..." >> output.log
-    if [ -f ./start.txt ]
+    if [ -f /home/cameron/command ]
     then
         ((s+=2))
     else
         if [ -f /usr/bin/gh ]
         then
-            gh repo clone C-Keenan/$hostname
+            cd /home/cameron
+            gh repo clone C-Keenan/$hostname >> output.log
+            cd /home/cameron/scripts
         else
-            sudo apt install -y subversion
-            sudo svn checkout https://github.com/C-Keenan/command/tree/main/command/
+            cd /home/cameron
+            sudo apt install -y gh >> output.log
+            gh repo clone C-Keenan/$hostname >> output.log
+            cd /home/cameron/scripts
         fi
     fi
 else
@@ -25,5 +29,6 @@ else
 fi
 if [ $s -eq 1 ]
 then
+    cd /home/cameron/scripts
     echo "An unexpected error has occured! Please check '$PWD/output.log' for more information."
 fi
