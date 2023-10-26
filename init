@@ -13,12 +13,12 @@ then
         if [ -f /usr/bin/gh ]
         then
             cd /home/cameron
-            gh repo clone C-Keenan/$hostname >> output.log
+            gh repo clone C-Keenan/$HOSTNAME >> output.log
             cd /home/cameron/scripts
         else
             cd /home/cameron
             sudo apt install -y gh >> output.log
-            gh repo clone C-Keenan/$hostname >> output.log
+            gh repo clone C-Keenan/$HOSTNAME >> output.log
             cd /home/cameron/scripts
         fi
     fi
@@ -29,4 +29,5 @@ if [ $s -eq 1 ]
 then
     cd /home/cameron/scripts
     echo "An unexpected error has occured! Please check '$PWD/output.log' for more information."
+    echo "An unexpected error has occured! Please check '$PWD/output.log' for more information." >> output.log
 fi
