@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+
+#!/bin/bash
+
+previous_step=$(cat ./previous_step.log)
+s=$previous_step
+
+if [ $s -eq 0 ]
+then
+    echo "Checking if files exist..." >> output.log
+    if [ -f ./start.txt ]
+    then
+        ((s+=2))
+    else
+        if [ -f /usr/bin/gh ]
+        then
+            gh repo clone C-Keenan/$hostname
+        else
+            sudo apt install -y subversion
+            sudo svn checkout https://github.com/C-Keenan/command/tree/main/command/
+        fi
+    fi
+else
+    let s=3
+fi
+if [ $s -eq 1 ]
+then
+    echo "An unexpected error has occured! Please check '$PWD/output.log' for more information."
+fi
