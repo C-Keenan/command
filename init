@@ -2,23 +2,29 @@
 
 previous_step=$(cat ./previous_step.log)
 s=$previous_step
+output="~/output.log"
 
 if [ $s -eq 0 ]
 then
-    echo "Checking if files exist..." >> output.log
+    echo "Checking if files exist..." >> $output
+    echo "Checking if files exist..."
     if [ -f /home/cameron/command ]
     then
+        cd /home/cameron
+        sudo rm -r ./command
+        gh repo clone C-Keenan/$HOSTNAME >> $output
+        echo "File exists. Moving to next step..." >> $output
         ((s+=2))
     else
         if [ -f /usr/bin/gh ]
         then
             cd /home/cameron
-            gh repo clone C-Keenan/$HOSTNAME >> output.log
+            gh repo clone C-Keenan/$HOSTNAME >> $output
             cd /home/cameron/scripts
         else
             cd /home/cameron
             sudo apt install -y gh >> output.log
-            gh repo clone C-Keenan/$HOSTNAME >> output.log
+            gh repo clone C-Keenan/$HOSTNAME >> $output
             cd /home/cameron/scripts
         fi
     fi
@@ -27,7 +33,7 @@ else
 fi
 if [ $s -eq 1 ]
 then
-    cd /home/cameron/scripts
+    cd /home/cameron
+    echo "An unexpected error has occured! Please check '$PWD/output.log' for more information." >> $output
     echo "An unexpected error has occured! Please check '$PWD/output.log' for more information."
-    echo "An unexpected error has occured! Please check '$PWD/output.log' for more information." >> output.log
 fi
